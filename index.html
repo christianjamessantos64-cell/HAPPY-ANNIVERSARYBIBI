@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Love Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f8d3dc; /* soft pink background */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Georgia', serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book {
+      width: 750px;
+      height: 1200px;
+      perspective: 2000px;
+      position: relative;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 8px 8px 30px rgba(0,0,0,0.4); /* spine & depth shadow */
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+      background: #fdfdfd;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: left;
+      transition: transform 1s, box-shadow 1s;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05), -3px 0 8px rgba(0,0,0,0.15); /* page depth */
+      border-radius: 0 12px 12px 0; /* curved edges */
+      padding: 40px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 2px,
+        transparent 2px,
+        transparent 4px
+      ); /* subtle paper texture */
+    }
+
+    .page.effect::after {
+      content: "✨";
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 25px;
+      opacity: 0.7;
+      animation: sparkle 2s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { transform: rotate(0deg) scale(1); opacity:0.6; }
+      50% { transform: rotate(20deg) scale(1.2); opacity:1; }
+      100% { transform: rotate(-20deg) scale(1); opacity:0.6; }
+    }
+
+    .page h1, .page p {
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+
+    .front-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 50px;
+      color: #c7436e;
+      background: linear-gradient(135deg, #fddde6, #ffe5e9);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      border-radius: 15px;
+      padding: 40px;
+      position: relative;
+      border-left: 8px solid #c7436e; /* simulate hardcover spine thickness */
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .controls button {
+      background: #e75480;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .controls button:hover {
+      background: #c7436e;
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="book" id="book">
+
+    <!-- Cover -->
+    <div class="page front-page effect">
+      <h1>Forever & Always ❤️</h1>
+      <p>Happy 1st Anniversary</p>
+    </div>
+
+    <!-- Pages -->
+    <div class="page effect"><h1>Page 1</h1><p>This is our story...</p></div>
+    <div class="page effect"><h1>Page 2</h1><p>Memories we made together...</p></div>
+    <div class="page effect"><h1>Page 3</h1><p>Our special moments...</p></div>
+    <div class="page effect"><h1>Page 4</h1><p>Sweet words here...</p></div>
+    <div class="page effect"><h1>Page 5</h1><p>More stories...</p></div>
+    <div class="page effect"><h1>Page 6</h1><p>Happy moments...</p></div>
+    <div class="page effect"><h1>Page 7</h1><p>Laughter and joy...</p></div>
+    <div class="page effect"><h1>Page 8</h1><p>Our adventures...</p></div>
+    <div class="page effect"><h1>Page 9</h1><p>Dreams we share...</p></div>
+    <div class="page effect"><h1>Page 10</h1><p>Promises we keep...</p></div>
+    <div class="page effect"><h1>Page 11</h1><p>Looking ahead together...</p></div>
+    <div class="page effect"><h1>Page 12</h1><p>Forever and always ❤️</p></div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="prevPage()">⬅ Previous</button>
+    <button onclick="nextPage()">Next ➡</button>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    let current = 0;
+
+    pages.forEach((page, index) => {
+      page.style.zIndex = pages.length - index;
+    });
+
+    function updatePages() {
+      pages.forEach((page, index) => {
+        page.style.transform = index < current ? 'rotateY(-180deg)' : 'rotateY(0deg)';
+      });
+    }
+
+    function nextPage() {
+      if (current < pages.length - 1) current++;
+      updatePages();
+    }
+
+    function prevPage() {
+      if (current > 0) current--;
+      updatePages();
+    }
+
+    updatePages();
+  </script>
+</body>
+</html>
