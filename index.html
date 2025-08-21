@@ -1,172 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Our Love Story</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: #f8d3dc; /* soft pink background */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Georgia', serif;
-      position: relative;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>HAPPY ANNIVERSARY BIBII JONACIL KO!</title>
+<style>
+body {
+  background: #f0e0e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Georgia', serif;
+}
 
-    .book {
-      width: 750px;
-      height: 1200px;
-      perspective: 2000px;
-      position: relative;
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 8px 8px 30px rgba(0,0,0,0.4); /* spine & depth shadow */
-    }
+.book {
+  width: 750px;
+  height: 1200px;
+  perspective: 2500px;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
 
-    .page {
-      width: 100%;
-      height: 100%;
-      background: #fdfdfd;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: left;
-      transition: transform 1s, box-shadow 1s;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.05), -3px 0 8px rgba(0,0,0,0.15); /* page depth */
-      border-radius: 0 12px 12px 0; /* curved edges */
-      padding: 40px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      background-image: repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,0.03),
-        rgba(255,255,255,0.03) 2px,
-        transparent 2px,
-        transparent 4px
-      ); /* subtle paper texture */
-    }
+/* Decorative edges */
+.book::before,
+.book::after,
+.book .left-edge,
+.book .right-edge {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border-radius: 8px;
+}
 
-    .page.effect::after {
-      content: "✨";
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 25px;
-      opacity: 0.7;
-      animation: sparkle 2s infinite alternate;
-    }
+.book::before { top: -10px; left: 0; width: 100%; height: 20px; background: linear-gradient(to bottom, #ffcad4, transparent); }
+.book::after { bottom: -10px; left: 0; width: 100%; height: 20px; background: linear-gradient(to top, #ffcad4, transparent); }
+.book .left-edge { top: 0; left: -10px; width: 20px; height: 100%; background: linear-gradient(to right, #ffcad4, transparent); }
+.book .right-edge { top: 0; right: -10px; width: 20px; height: 100%; background: linear-gradient(to left, #ffcad4, transparent); }
 
-    @keyframes sparkle {
-      0% { transform: rotate(0deg) scale(1); opacity:0.6; }
-      50% { transform: rotate(20deg) scale(1.2); opacity:1; }
-      100% { transform: rotate(-20deg) scale(1); opacity:0.6; }
-    }
+.page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fffaf0;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  border-radius: 8px;
+  transform-origin: left;
+  transition: transform 1s, box-shadow 0.5s;
+  padding: 50px 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-size: 22px;
+  line-height: 1.7;
+  color: #3e2a25;
+  border-left: 1px solid #d8c0b0;
+  border-right: 1px solid #d8c0b0;
+  background-image: repeating-linear-gradient(0deg, #fffaf0, #fffaf0 20px, #fdf5e6 21px);
+}
 
-    .page h1, .page p {
-      margin: 0 0 15px 0;
-      text-align: center;
-    }
+/* Corner decorations */
+.page::before,
+.page::after {
+  content: "💖";
+  position: absolute;
+  font-size: 30px;
+  opacity: 0.3;
+}
+.page::before { top: 10px; left: 10px; }
+.page::after { bottom: 10px; right: 10px; }
 
-    .front-page {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Great Vibes', cursive;
-      font-size: 50px;
-      color: #c7436e;
-      background: linear-gradient(135deg, #fddde6, #ffe5e9);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-      border-radius: 15px;
-      padding: 40px;
-      position: relative;
-      border-left: 8px solid #c7436e; /* simulate hardcover spine thickness */
-    }
+.page h1 {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 36px;
+  color: #c7436e;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
 
-    .controls {
-      margin-top: 20px;
-    }
+/* Floating hearts on front page */
+.floating-hearts span {
+  position: absolute;
+  font-size: 40px;
+  color: #ff5fa3;
+  opacity: 0.8;
+  animation: floatUp linear infinite;
+}
 
-    .controls button {
-      background: #e75480;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 0 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
+@keyframes floatUp {
+  0% { transform: translateY(0px) scale(0.8); opacity: 0.8; }
+  50% { transform: translateY(-150px) scale(1); opacity: 1; }
+  100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
+}
 
-    .controls button:hover {
-      background: #c7436e;
-      transform: scale(1.05);
-    }
+.front-page {
+  background: linear-gradient(145deg, #fddde6, #ffe5e9);
+  border-radius: 12px;
+  border: 5px solid #ff9bb1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-  </style>
+.front-page .messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.front-page .messages p {
+  font-size: 24px;
+  color: #c7436e;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  font-style: normal;
+}
+
+.ribbon { width: 80px; height: 30px; background: #ff9bb1; position: absolute; top: 20px; right: -20px; transform: rotate(45deg); box-shadow: 0 2px 6px rgba(0,0,0,0.3); border-radius: 5px; }
+
+.controls { margin-top: 20px; }
+.controls button {
+  background: #e75480;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+.controls button:hover { background: #c7436e; transform: scale(1.05); }
+</style>
 </head>
 <body>
 
-  <div class="book" id="book">
+<div class="book" id="book">
+  <div class="left-edge"></div>
+  <div class="right-edge"></div>
 
-    <!-- Cover -->
-    <div class="page front-page effect">
-      <h1>Forever & Always ❤️</h1>
-      <p>Happy 1st Anniversary</p>
+  <!-- Front Page -->
+  <div class="page front-page">
+    <div class="ribbon"></div>
+    <div class="floating-hearts">
+      <span style="left: 50px; animation-duration: 6s;">💖</span>
+      <span style="left: 150px; animation-duration: 5s;">💖</span>
+      <span style="left: 250px; animation-duration: 7s;">💖</span>
+      <span style="left: 350px; animation-duration: 6.5s;">💖</span>
+      <span style="left: 450px; animation-duration: 5.5s;">💖</span>
     </div>
-
-    <!-- Pages -->
-    <div class="page effect"><h1>Page 1</h1><p>This is our story...</p></div>
-    <div class="page effect"><h1>Page 2</h1><p>Memories we made together...</p></div>
-    <div class="page effect"><h1>Page 3</h1><p>Our special moments...</p></div>
-    <div class="page effect"><h1>Page 4</h1><p>Sweet words here...</p></div>
-    <div class="page effect"><h1>Page 5</h1><p>More stories...</p></div>
-    <div class="page effect"><h1>Page 6</h1><p>Happy moments...</p></div>
-    <div class="page effect"><h1>Page 7</h1><p>Laughter and joy...</p></div>
-    <div class="page effect"><h1>Page 8</h1><p>Our adventures...</p></div>
-    <div class="page effect"><h1>Page 9</h1><p>Dreams we share...</p></div>
-    <div class="page effect"><h1>Page 10</h1><p>Promises we keep...</p></div>
-    <div class="page effect"><h1>Page 11</h1><p>Looking ahead together...</p></div>
-    <div class="page effect"><h1>Page 12</h1><p>Forever and always ❤️</p></div>
+    <h1>HAPPY ANNIVERSARY BIBII JONACIL KO!</h1>
+    <div class="messages">
+      <p>“Every moment with you is my favorite story.”</p>
+      <p>1 year of love, laughter, and beautiful memories.</p>
+      <p>Siji ❤️ Jonacil</p>
+      <p>August 22, 2024, 12:30 am</p>
+    </div>
   </div>
 
-  <!-- Controls -->
-  <div class="controls">
-    <button onclick="prevPage()">⬅ Previous</button>
-    <button onclick="nextPage()">Next ➡</button>
+  <!-- Inside Pages with Titles Only -->
+  <div class="page">
+    <h1>A Message from Me</h1>
+    <p>
+      First of all, i just want to say HAPPY ANNIVERSARY BIBI KOOO, Thank you sa 12 months na mag kasama tayo, thank you rin kasi araw-araw mo pa rin akong pinipili na kahit napaka-sadboi ng asawa mo nagagawa mo pa rin akong piliin, kahit nakakagawa ako ng big mistakes pinipili mo pa rin ako, especially sa pagiging safeplace ko sa chaotic world na to. From the first day na nakita kita, mahal, yes mahal, first day pa lang alam kong may something na agad sayo na wala sa kahit na kaninong babae, and nung naging tayo? na-realize ko agad kung gaano ko ka-swerte na merong jonacel sa tabi ko. Bibi gusto ko lang na malaman mo na you are my heart, my joy and the reason i smile. Nung naging tayo, don ako naniwalang may true love pa pala ngayon, kasi mahal sayo ko naramdaman yon talaga and di ko ma-imagine kung mawawala ka sakin.</p>
+
+      Anyways, sana ma-enjoy mong basahin tong ginawa kong 12 pages na mini-book, suri di inglis kasi di ako magaling mag inglis ih, take your time bibi, i love you so much!
+    
   </div>
+  <div class="page"><h1>Memories Together</h1>
+  Bibi, naalala mo pa ba nung unang araw na nag date tayo? alam mo ayon yung isa sa pinaka-masaya kong araw, yung tipong kahit kilig na kilig ako non tas nahihiya na ko sayo dahil namumula ako, ang saya talaga non, yung kiss mo sa pisngi ko, grabe nakakakilig talaga yon.</p>
+  
+  <p>And naalala mo ba nung nakain tayo sa 7/11 tas muntik na tayo mag kiss lips to lips, nahihiya pa tayo pareho non kasi kala natin di pa pwede mag kiss, kaya nung napag decide-an natin na mag kiss non, grabu talaga yung kilig ko ih, namula ko non tas sa bahay nyo pa tayo nag kiss non, tas naalala mo nung uuwi na ko tas kiniss kita tas tumunog? grabi kaba natin non ih HAHAHAHAHSHA baka kasi narinig ni jess di ba, tas ayon nung nag lalakad ako pauwi naka-ngiti ako😭.</p>
 
-  <script>
-    const pages = document.querySelectorAll('.page');
-    let current = 0;
+  <p>Grabe, from our first date, hanggang sa nakakarami na tayo ng dates, lahat ng yon tumatak sakin mahal, nag stay sya sa heart ko, kahit nga yung simpleng pag lalakad natin ng gabi sa arca ih, nag stay talaga sya sa heart ko. Ginawa mong napaka-memorable ng mga araw na yon na dati para sakin normal days lang.</p>
 
-    pages.forEach((page, index) => {
-      page.style.zIndex = pages.length - index;
-    });
+  <p>Sana mahal makagawa pa tayo ng maraming memories together kasi with you, every moment feels magical.</p></div>
+  <div class="page"><h1>Special Moments</h1>
+  Bibi sobrang dami talaga natin special moments together no? lahat ng yon di ko makakalimutan. Yung iba ron ang simple lang, like yung tawa tayo nang tawa na hanggang sumakit na tyan natin, yung lagi kitang inaasar, kahit yung pag kurot mo sakin mahal, ang simple pero para sakin special na sya. Yung little surprises natin, na bigla tayong mag reregalo sa isa't isa kahit di naman natin monthsary.</p>
 
-    function updatePages() {
-      pages.forEach((page, index) => {
-        page.style.transform = index < current ? 'rotateY(-180deg)' : 'rotateY(0deg)';
-      });
-    }
+  <p>pero may mga special talagang di ko nakalimutan, like nung tinapat mo ko kay tito, na umamin ako non na tayo na, grabi ayon talaga mahal, sobrang special non para sakin, like kahit inabot ako ng 2am non bago makauwi, napaka-special nya para sakin. Kasi ayon yung first day na na-legal mo ko and finally makakasama na kita non ng walang pumipigil satin di ba?</p>
 
-    function nextPage() {
-      if (current < pages.length - 1) current++;
-      updatePages();
-    }
+  <p>And meron pa yung bday ko, gumala tayo non, napaka-special para sakin non kasi ayon yung first time na nagala kita ng malayo, yes di natin sya maulit for now pero, i hope magawa natin sya soon kasi gusto talaga kita igala ng di lang sa arca.</p>
 
-    function prevPage() {
-      if (current > 0) current--;
-      updatePages();
-    }
+  <p>alam mo bat ang try hard kong pangitiin ka? kasi mahal everytime na nag s-smile ka sakin, tine-treasure ko yon lahat, and those are the moments that makes my heart full.</p></div>
+  <div class="page"><h1>Sweet Words</h1>
+  Bibi, gusto ko lang sabihin na mahal na mahal kita sa paraan na words can’t even fully express. Every ‘I love you’, every hug, every little ‘good morning’ text, parang small gestures lang pero ang laki ng impact sakin. You make me feel safe, loved, and truly happy. Kahit na may mga araw na mahirap o nakakastress, basta andiyan ka, parang lahat ng worries ko nawawala. Thank you sa pagiging ikaw, sa pagmamahal mo, at sa patience mo sakin. Sana malaman mo na every word, every smile mo, every laugh mo, ang mahalaga sakin, at forever ko itong ipapahalaga.</p>
 
-    updatePages();
-  </script>
+  <p>Pero pag dating sa sweet words, syempre di rin mawawala calls signs natin di ba bibi? naalala ko na andami dami pa nating inisip na call signs non, ang ending magagamit pala natin sya depend sa mood natin HAHAHAHAHAHA kagaya ng "love" nagagamit natin sya pag nag tatampo tayo sa isa't isa, yung "mahal" nagagamit natin sya pag normal na nag uusap tayo di ba? yung "bibi" pag nag haharutan tayo HAHAHAHAHA di ba meron pa nga tayong "Uno"? kasi di ba naalala mo na sabi ko non kaya uno kasi para tayo sa isa't isa at dahil favorite game natin yon non ay yung uno di ba bibi?</p>
+
+  <p>Grabe isipin mo ang normal lang para sa iba non, pero para satin may deep meaning lahat ng sweet words, and call signs natin, ngayon ko nasasabi na kahit 1 year palang tayo, ang layo na ng narating natin di ba uno ko?</p></div>
+  <div class="page">
+    <h1>More Stories</h1>
+    Bibi, alam mo ba, sa dami ng moments natin, may mga simpleng araw lang pero ang saya at special talaga. Like yung minsan naglakad lang tayo sa arca, nag-usap about everything at wala lang ibang tao, yung moment na iyon parang buong mundo natin lang. Yung mga inside jokes natin na kahit anong mangyari, basta tayo lang ang makakaintindi, napapangiti talaga ako.</p>
+  <p>At yung mga times na nagkamali ako o na-stress, pero andiyan ka para sakin, hindi mo ako pinapabayaan, parang ang laki ng comfort na naramdaman ko. At yung mga problems na pinag k-kwentuhan natin and c-comfort natin isa't isa, di ba? ang simple lang pero ang sarap balikan, kaya kung may time lang tayo ngayon, gusto ko ulitin yang mga yan, lalo na yung pag a-arca natin di ba bibi?</p>
+  <p>At yung mga kalokohan natin dito sa bahay, sa labas, kahit saan pa man, yung kahit nasaang lugar tayo nananalo talaga yung kaharutan natin, di maiwasang di mag kiss ba HAHAHAHAHA nakakamiss talaga lahat ng yan.</p></div>
+ <div class="page"><h1>Challenges & Growth</h1>
+  <p>Bibi, kahit hindi lahat ng araw natin perfect, bawat challenge na hinarap natin ay nagpatibay sa atin. Yung mga misunderstandings, arguments, at mga panahon na stressed tayo, lahat ng yun, natutunan ko na kasama ka, kahit gaano kahirap, may solusyon tayo basta magkasama.</p>
+  <p>I realized, mahal, na every problem we faced taught me more about you, about us, and about how love really works. Natutunan ko rin na kahit may mga down moments, basta may patience at understanding, we can get through anything. Thank you for being my support, my comfort, and my safe space.</p>
+  <p>Lahat ng problems na yon? lahat ng yon tumulong satin para mapatibay yung love natin di ba mahal? kahit na sobrang bigat, kahit minsan di na natin sinasabi sa isa't isa kasi ayaw natin na may madamay, pinatibay pa rin non kung asan man tayo ngayon, Thank you talaga bibi ko kasi sinamahan mo ko sa lahat ng yon, and bibi ko, i'm here rin para samahan ka sa lahat ng challenges na dadating sayo, kagaya nga ng sabi ko di ba?</p>
+  <p>"Problem mo, problem ko na rin".</p>
+</div>
+<div class="page">
+  <h1>My Heart, Your Home</h1>
+  <p>Bibi, gusto ko lang na malaman mo na yung heart ko, ako mismo, i'm always your home. You can be yourself around me, maging makulit, masaya or kahit na malungkot ka pa, pagod or punong-puno ng problems, gusto ko lang na malaman mo na andito ko, kaya kitang tulungan sa lahat kasi asawa kita di ba? and ang mag asawa ay nag tutulungan, lagi lang ako andito para maramdaman mong safe ka, i'm here to hold you and support you bibi, kaya pag may problems ka? takbo ka lang sakin ha?</p>
+
+  <p>Nung mga times kaya na down na down ako, andito ka, hinuhug mo ko, kinikiss mo ko, pina-feel mo sakin kung saan talaga ko belong, and naalala mo nung nag kasakit ako ng malala? andito ka, inalagaan mo ko, yung kahit need mo na umuwi, nag stay ka pa rin kasi alam mong di ako okay, kaya mahal, i want you to feel the same. I promise that my heart will always be a place where you can rest. I am yours forever.</p>
+</div>
+  <div class="page"><h1>Shared Dreams</h1>Bibi, habang tumatagal ang panahon natin, natutunan ko na mas maganda ang future kapag magkasama tayo. Lahat ng dreams ko, gusto kong kasama ka, mula sa simpleng plans like paglalakad sa arca, pag kain sa 7/11, sa signal, hanggang pauwi, hanggang sa malalaking pangarap natin sa buhay. You inspire me to dream bigger, and dahil sayo, i feel like kaya nating abutin lahat ng gusto natin, basta magkasama tayo.</p>
+  <p>Every plan natin, kahit maliit or simple, parang mahalagang memory na agad. Yung mga pah uusap natin about the future, yung mga kwentuhan kung paano natin gustong mag-grow together, lahat yun ay nagbibigay sa akin ng comfort at excitement. Bibi, gusto ko lang malaman mo na kasama kita sa lahat ng dreams natin, and I promise na will do my best para matupad natin lahat ng ito, together.</p>
+  <p>Naalala ko pa non nung nag tampo ka sakin about sa bahay bahay natin in the future, don talaga nafeel kong mahal mo talaga ko and talagang may pake ka sa future natin, kaya simula non may pinag butihan ko na talaga, sa pag aaral para sa future natin.</p>
+  <p>Di ba sabi mo mag aalaga tayo ng maraming aso at pusa, mag papakain tayo ng mga stray na dogs and cats, gagala tayo every day off natin, and mag papayaman tayo sabi mo di ba? kaya mahal gagawin ko lahat para maabot natin yang future natin, para magawa natin lahat yan bibi ko! Promise ko po sayo yan ha!</p></div>
+  <div class="page"><h1>Promises</h1>
+  Bibi, gusto ko lang ipromise sayo na sa bawat araw, sa bawat sandali, pipilitin kong maging pinakabest na poging bf para sayo. Kahit may mga challenges tayo, kahit may mga misunderstanding, ang pangako ko ay laging nandito para sayo, handang makinig, umintindi, at magbigay ng comfort at love na deserve mo.</p>
+
+  <p>Promise ko rin na patuloy kong ipapakita sayo kung gaano kita kamahal, sa maliliit na bagay, sa simpleng smiles, sa mga hugs at kisses, at sa lahat ng ways na maipaparamdam ko sayo na you are my everything. Lahat ng pangarap at goal natin, harapin natin together, step by step, basta’t magkasama tayo.</p>
+
+  <p>Promise ko sayo na never kitang iiwan, sabi ko nga non kahit ayawan mo na ko andito pa rin ako ih, kahit may umagaw sayo sakin ipapanalo pa rin kita, mabuo lang natin yung mga promises natin together, never kitang susukuan and promise bibi, andito lang ang siji mo forever, for you! for us!</p></div>
+<div class="page">
+  <h1>Things I Love About Her</h1>
+  <p>Bibi, alam mo ba, sobrang dami kong things na love about you, di ko malist lahat pero ang pinaka love ko sayo is apaka-ganda mo talaga and kung gaano ka katotoo sarili mo.</p>
+  <p>I love your laugh, lalo na pag ako nakakagawa non, the way na binabago ng laugh mo yung mood ko, and makes everything feel lighter. I love your smile, name-melt talaga yung heart ko taga makikita kong nakangiti ka. And i love the way na sobrang bait mo talaga mahal, di lang sakin, kundi sa mga nasa paligid mo, lalo na sa mga nakikita nating pusa at aso, sa mga bata.</p>
+  <p>I love your maldita side, kung pano mo ko tarayan, awayin, love na love ko yon, kung para sayo naiinis ka sa ganon mo, ako hindi, kasi mahal hangga't alam kong inaaway mo ko, tinatarayan mo ko, may pake ka sakin ih, di ka naman ganyan sa iba sakin lang di ba. Love na love ko kung paano ka maging makulit sakin, sa mga kalokohan na ginagawa natin dito sa bahay, yes love ko yan kasi mahal ang normal nalang ng lahat satin ih di ba, ginagawa natin sya di natin jinujudge yung isa't isa.</p>
+  <p>Love ko kung paano ka pumorma, ang ganda ganda mo pumorma, grabi nakakabaliw ka kaya, and i love the way na napalabas ko feminine side mo and naporma ka dahil sakin. I love your passion for the things you care about, your dreams, and your goals.</p>
+  <p>Most of all i love how you love me, fully and genuinely, you make me truly happy and sana bibi, walang mag bago sa jonacel ko na yan!</p>
+</div>
+  <div class="page"><h1>Forever & Always</h1>
+  p>Bibi, alam mo? Para sakin yung love na meron tayo sobrang rare. Kasi bibi pag satin, di ko kailangan ng perfectly days, makasama palang kita, maka-usap pa lang kita, kahit sa messenger, alam ko perfect na agad araw ko. Gusto ko lang na malaman mo na ang love ko? <strong>forever and always</strong> yan ha, papatunayan ko sayong hindi lang ako pang ngayon, di ako yung taong makikipag date then titigil agad, forever na me here, and sana ganon ka rin ha.</p>
+  <p>Thank you sa pagiging ikaw, sa pagiging gentle sakin, sa pag baby sakin, pagiging matatag kahit sobrang daming problem. Kasama mo na me sa lahat. Gusto ko lang na malaman mong sayong sayo na ko bibi, <strong>forever and always</strong>.</p></div>
+  <div class="page"><h1>Special Note</h1>
+  Bibi, before ko matapos tong mini book na ginawa ko, gusto ko lang na malaman mo na bawat words, letters and pinaglalagay ko rito, galing sa heart ko, and gusto ko lang na malaman mong simula pa lang to, matagal pa tayo mag sasama and little efforts ko pa lang to, sana maenjoy mong basahin tong 12 pages ng book ko.</p>
+  <p>Alam mo bat 12 pages? Kasi 12 months na tayo mag kasama.</p>
+  <p>And sana bibi di lang ikaw chapter sa book ko ah, sana ikaw ang buong book ko, kasi ikaw na ang buong book ko ih, and di lang yon 12 pages, kundi walang katapusang page.</p>
+  <p>Yon lang bibi koo maraming thank you ulit sa pag babasa neto, tandaan mo palaging mahal na mahal kita, and sana mag kita na tayo mamaya, miss na miss na kita.</p>
+  <p>And bibi</p>
+  <h2>Happy Anniversary ulit poo!</h2>
+  <h1>I LOVE YOU SO MUCH! MWAAAA!</h1></div>
+
+</div>
+
+<div class="controls">
+  <button onclick="prevPage()">⬅ Previous</button>
+  <button onclick="nextPage()">Next ➡</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+let current = 0;
+
+pages.forEach((page, index) => {
+  page.style.zIndex = pages.length - index;
+});
+
+function updatePages() {
+  pages.forEach((page, index) => {
+    page.style.transform = index < current ? 'rotateY(-180deg) rotateZ(-1deg)' : 'rotateY(0deg)';
+  });
+}
+
+function nextPage() { if (current < pages.length - 1) current++; updatePages(); }
+function prevPage() { if (current > 0) current--; updatePages(); }
+
+updatePages();
+</script>
+
 </body>
 </html>
